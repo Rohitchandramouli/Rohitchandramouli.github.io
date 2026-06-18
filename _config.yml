@@ -1,14 +1,14 @@
 title: Rohit Chandramouli
 description: >-
-  Building toward a Tamil Nadu-based AI research institution, one
-  shipped system at a time. Notes from a six-month foundation sprint
-  into ML engineering, reinforcement learning, and game AI.
+  Notes from a six-month foundation sprint into ML engineering,
+  PyTorch, transformers, and game AI — written as it happens,
+  including the parts that don't go to plan.
 url: "https://rohitchandramouli.github.io"
 baseurl: ""
 
 author:
   name: Rohit Chandramouli
-  github: rohitchandramouli
+  github: Rohitchandramouli
 
 markdown: kramdown
 highlighter: rouge
