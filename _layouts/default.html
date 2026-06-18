@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if page.title %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+<style>
+  :root{
+    --ink:#1b1f23;
+    --ink-soft:#565d66;
+    --paper:#fbfaf7;
+    --line:#e3ddd0;
+    --accent:#9a4b2f;
+    --accent-deep:#6e3520;
+    --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+    --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.7;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+
+  header.site-header{
+    border-bottom:1px solid var(--line);
+    padding:28px 0 22px;
+    margin-bottom:40px;
+  }
+  header.site-header .wrap{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;}
+  header.site-header a.brand{
+    font-family:var(--serif);
+    font-size:21px;
+    font-weight:600;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  header.site-header nav a{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-decoration:none;
+    margin-left:18px;
+  }
+  header.site-header nav a:hover{color:var(--accent-deep);}
+
+  main{padding-bottom:80px;}
+
+  h1.post-title{
+    font-family:var(--serif);
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  .post-meta{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-bottom:34px;
+  }
+  .post-meta .tag{
+    display:inline-block;
+    background:#f1e3da;
+    color:var(--accent-deep);
+    padding:2px 8px;
+    border-radius:3px;
+    margin-left:8px;
+    text-transform:none;
+    letter-spacing:0;
+  }
+
+  article.post-content p{margin:0 0 22px;}
+  article.post-content h2{
+    font-family:var(--serif);
+    font-size:25px;
+    margin:42px 0 14px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+  article.post-content h3{
+    font-family:var(--serif);
+    font-size:20px;
+    margin:32px 0 10px;
+  }
+  article.post-content blockquote{
+    border-left:3px solid var(--accent);
+    margin:24px 0;
+    padding:2px 0 2px 18px;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  article.post-content code{
+    font-family:var(--mono);
+    background:#efeae0;
+    padding:1px 5px;
+    border-radius:3px;
+    font-size:0.85em;
+  }
+  article.post-content pre{
+    background:#23262b;
+    color:#e8e6df;
+    padding:16px 18px;
+    border-radius:6px;
+    overflow-x:auto;
+    font-size:14px;
+    line-height:1.55;
+  }
+  article.post-content pre code{background:none;padding:0;}
+  article.post-content ul, article.post-content ol{padding-left:22px;margin:0 0 22px;}
+  article.post-content li{margin-bottom:8px;}
+  article.post-content a{color:var(--accent-deep);text-decoration:underline;text-decoration-color:var(--line);}
+  article.post-content img{max-width:100%;border-radius:4px;}
+  article.post-content hr{border:none;border-top:1px solid var(--line);margin:36px 0;}
+
+  .post-list-item{
+    margin-bottom:34px;
+    padding-bottom:28px;
+    border-bottom:1px solid var(--line);
+  }
+  .post-list-item:last-child{border-bottom:none;}
+  .post-list-item .date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .post-list-item h2{
+    font-family:var(--serif);
+    font-size:24px;
+    margin:6px 0 8px;
+  }
+  .post-list-item h2 a{color:var(--ink);text-decoration:none;}
+  .post-list-item h2 a:hover{color:var(--accent-deep);}
+  .post-list-item p.excerpt{color:var(--ink-soft);margin:0;}
+
+  footer.site-footer{
+    border-top:1px solid var(--line);
+    padding:24px 0;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+  footer.site-footer a{color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav>
+      <a href="{{ '/' | relative_url }}">Posts</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="https://github.com/{{ site.author.github }}">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  {{ content }}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    {{ site.title }} &middot; built and maintained on GitHub Pages &middot; <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+  </div>
+</footer>
+
+</body>
+</html>

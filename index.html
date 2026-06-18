@@ -1,0 +1,13 @@
+---
+layout: default
+title: Home
+---
+<p style="color:var(--ink-soft); margin-bottom:36px;">{{ site.description }}</p>
+
+{% for post in site.posts %}
+<div class="post-list-item">
+  <div class="date">{{ post.date | date: "%B %-d, %Y" }}</div>
+  <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+  <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
+</div>
+{% endfor %}
