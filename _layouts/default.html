@@ -8,261 +8,291 @@
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
 <style>
   :root{
-    --ink:#1b1f23;
-    --ink-soft:#565d66;
-    --ink-faint:#8b8f96;
-    --paper:#fbfaf7;
-    --panel:#ffffff;
-    --line:#e3ddd0;
-    --line-strong:#cfc6ae;
-    --accent:#9a4b2f;
-    --accent-soft:#f1e3da;
-    --accent-deep:#6e3520;
+    --bg:#0d1117;
+    --bg-raised:#161b22;
+    --panel:#161b22;
+    --line:#21262d;
+    --line-bright:#30363d;
+    --text:#c9d1d9;
+    --text-dim:#8b949e;
+    --text-faint:#5b6573;
+    --signal:#7ee787;
+    --signal-dim:#3fb950;
+    --warn:#f78166;
+    --link:#79c0ff;
     --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
-    --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
     --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   }
   *{box-sizing:border-box;}
-  html{background:var(--paper);}
+  html{background:var(--bg);}
   body{
     margin:0;
-    background:var(--paper);
-    color:var(--ink);
+    background:var(--bg);
+    color:var(--text);
     font-family:var(--sans);
-    font-size:17px;
+    font-size:16px;
     line-height:1.7;
   }
-  .wrap{max-width:700px;margin:0 auto;padding:0 28px;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+  ::selection{background:#264f78;color:#fff;}
 
   /* ===== HEADER ===== */
   header.site-header{
-    background:var(--ink);
-    padding:30px 0 26px;
+    border-bottom:1px solid var(--line);
+    padding:18px 0;
   }
-  header.site-header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
-  header.site-header .brand-block{display:flex;align-items:baseline;gap:10px;}
-  header.site-header .stamp{
-    font-family:var(--mono);
-    font-size:10.5px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    background:var(--accent);
-    color:#fff;
-    padding:3px 8px;
-    border-radius:2px;
+  header.site-header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  header.site-header .brand-block{display:flex;align-items:center;gap:10px;font-family:var(--mono);}
+  header.site-header .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 8px var(--signal-dim);
+    flex-shrink:0;
   }
   header.site-header a.brand{
-    font-family:var(--serif);
-    font-size:22px;
-    font-weight:600;
-    color:#fff;
+    font-family:var(--mono);
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--text);
     text-decoration:none;
-    letter-spacing:-0.01em;
   }
+  header.site-header a.brand .prompt{color:var(--text-faint);}
   header.site-header nav a{
     font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:#b8bcc2;
+    font-size:12.5px;
+    color:var(--text-dim);
     text-decoration:none;
-    margin-left:22px;
+    margin-left:20px;
     border-bottom:1px solid transparent;
     padding-bottom:2px;
   }
-  header.site-header nav a:hover{color:#fff;border-bottom-color:var(--accent);}
+  header.site-header nav a:hover{color:var(--signal);border-bottom-color:var(--signal-dim);}
 
-  /* ===== HERO / INTRO STRIP (homepage only) ===== */
-  .hero{
-    border-bottom:1px solid var(--line);
-    padding:38px 0 32px;
-    margin-bottom:8px;
+  /* ===== STATUS STRIP (homepage signature element) ===== */
+  .status-strip{
+    margin-top:28px;
+    border:1px solid var(--line-bright);
+    border-radius:6px;
+    background:var(--bg-raised);
+    overflow:hidden;
   }
-  .hero .kicker{
+  .status-strip .status-row{
+    display:flex;
+    align-items:stretch;
     font-family:var(--mono);
-    font-size:11.5px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--accent-deep);
-    margin-bottom:10px;
+    font-size:12px;
   }
+  .status-strip .status-cell{
+    flex:1;
+    padding:14px 18px;
+    border-right:1px solid var(--line);
+  }
+  .status-strip .status-cell:last-child{border-right:none;}
+  .status-strip .label{
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-size:10.5px;
+    margin-bottom:6px;
+  }
+  .status-strip .value{
+    color:var(--text);
+    font-size:18px;
+    font-weight:600;
+  }
+  .status-strip .value.signal{color:var(--signal);}
+  .status-strip .titlebar{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+    padding:8px 18px;
+    border-bottom:1px solid var(--line);
+    background:#0d1117;
+  }
+  @media (max-width:560px){
+    .status-strip .status-row{flex-direction:column;}
+    .status-strip .status-cell{border-right:none;border-bottom:1px solid var(--line);}
+    .status-strip .status-cell:last-child{border-bottom:none;}
+  }
+
+  .hero{margin:28px 0 8px;}
   .hero p{
-    color:var(--ink-soft);
-    font-size:17px;
+    color:var(--text-dim);
+    font-size:15.5px;
     margin:0;
-    max-width:580px;
+    max-width:600px;
   }
 
   main{padding-bottom:90px;}
 
   /* ===== SINGLE POST ===== */
   h1.post-title{
-    font-family:var(--serif);
-    font-size:38px;
-    line-height:1.18;
-    margin:38px 0 12px;
-    letter-spacing:-0.012em;
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:32px;
+    line-height:1.25;
+    margin:34px 0 14px;
+    letter-spacing:-0.01em;
+    color:#fff;
   }
   .post-meta{
     font-family:var(--mono);
-    font-size:12.5px;
-    color:var(--ink-faint);
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    margin-bottom:36px;
-    padding-bottom:20px;
+    font-size:12px;
+    color:var(--text-faint);
+    margin-bottom:34px;
+    padding-bottom:18px;
     border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
   }
+  .post-meta::before{content:"$";color:var(--signal-dim);}
   .post-meta .tag{
     display:inline-block;
-    background:var(--accent-soft);
-    color:var(--accent-deep);
+    background:var(--bg-raised);
+    border:1px solid var(--line-bright);
+    color:var(--signal);
     padding:2px 9px;
     border-radius:3px;
-    margin-left:8px;
-    text-transform:none;
-    letter-spacing:0;
-    font-size:12px;
+    font-size:11.5px;
   }
 
-  article.post-content p{margin:0 0 22px;}
+  article.post-content p{margin:0 0 22px;color:var(--text);}
   article.post-content h2{
-    font-family:var(--serif);
-    font-size:26px;
-    margin:46px 0 16px;
-    padding-top:4px;
-    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:22px;
+    margin:44px 0 16px;
+    color:#fff;
   }
   article.post-content h2::before{
-    content:"";
-    display:block;
-    width:36px;
-    height:3px;
-    background:var(--accent);
-    margin-bottom:16px;
+    content:"##";
+    color:var(--signal-dim);
+    font-family:var(--mono);
+    font-weight:400;
+    margin-right:10px;
+    font-size:16px;
   }
   article.post-content h3{
-    font-family:var(--serif);
-    font-size:21px;
-    margin:32px 0 10px;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:18px;
+    margin:30px 0 10px;
+    color:#fff;
   }
   article.post-content blockquote{
-    border-left:3px solid var(--accent);
-    background:var(--accent-soft);
-    margin:26px 0;
-    padding:14px 20px;
-    border-radius:0 4px 4px 0;
-    color:var(--accent-deep);
+    border-left:2px solid var(--signal-dim);
+    margin:24px 0;
+    padding:4px 0 4px 18px;
+    color:var(--text-dim);
     font-style:italic;
   }
   article.post-content blockquote p:last-child{margin-bottom:0;}
   article.post-content code{
     font-family:var(--mono);
-    background:#efeae0;
+    background:var(--bg-raised);
+    border:1px solid var(--line);
     padding:1px 6px;
     border-radius:3px;
     font-size:0.85em;
+    color:var(--signal);
   }
   article.post-content pre{
-    background:#23262b;
-    color:#e8e6df;
+    background:#010409;
+    border:1px solid var(--line-bright);
+    color:var(--text);
     padding:18px 20px;
-    border-radius:8px;
+    border-radius:6px;
     overflow-x:auto;
-    font-size:14px;
+    font-size:13.5px;
     line-height:1.55;
     margin:24px 0;
   }
-  article.post-content pre code{background:none;padding:0;}
-  article.post-content ul, article.post-content ol{padding-left:24px;margin:0 0 22px;}
+  article.post-content pre code{background:none;border:none;padding:0;color:var(--text);}
+  article.post-content ul, article.post-content ol{padding-left:24px;margin:0 0 22px;color:var(--text);}
   article.post-content li{margin-bottom:9px;}
-  article.post-content a{color:var(--accent-deep);text-decoration:underline;text-decoration-color:var(--line-strong);text-decoration-thickness:1px;}
-  article.post-content a:hover{text-decoration-color:var(--accent);}
-  article.post-content img{max-width:100%;border-radius:6px;}
+  article.post-content li::marker{color:var(--text-faint);}
+  article.post-content a{color:var(--link);text-decoration:underline;text-decoration-color:#30363d;}
+  article.post-content a:hover{text-decoration-color:var(--link);}
+  article.post-content img{max-width:100%;border-radius:6px;border:1px solid var(--line);}
   article.post-content hr{border:none;border-top:1px solid var(--line);margin:40px 0;}
 
-  /* ===== POST LIST (homepage) ===== */
-  .post-list{margin-top:30px;}
-  .post-list-item{
+  /* ===== POST LIST (homepage, log-line style) ===== */
+  .post-list{margin-top:24px;}
+  .log-entry{
     display:flex;
-    gap:22px;
-    padding:26px 0;
+    align-items:baseline;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+  }
+  .log-entry:last-child{border-bottom:none;}
+  .log-entry .ts{
+    flex-shrink:0;
+    color:var(--text-faint);
+    font-size:12.5px;
+    width:104px;
+  }
+  .log-entry .tagchip{
+    flex-shrink:0;
+    font-size:10.5px;
+    color:var(--signal);
+    border:1px solid var(--line-bright);
+    border-radius:3px;
+    padding:1px 7px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .log-entry .entry-title{
+    font-family:var(--sans);
+    font-size:16px;
+    font-weight:500;
+    flex:1;
+  }
+  .log-entry .entry-title a{color:var(--text);text-decoration:none;}
+  .log-entry .entry-title a:hover{color:var(--signal);}
+  .log-entry .arrow{color:var(--text-faint);font-family:var(--mono);font-size:13px;}
+
+  .post-excerpt-line{
+    font-family:var(--sans);
+    color:var(--text-dim);
+    font-size:14px;
+    margin:0 0 0 118px;
+    padding-bottom:16px;
     border-bottom:1px solid var(--line);
   }
-  .post-list-item:last-child{border-bottom:none;}
-  .post-list-item .date-col{
-    flex-shrink:0;
-    width:88px;
-    padding-top:4px;
+  .post-excerpt-line:last-of-type{border-bottom:none;}
+
+  @media (max-width:560px){
+    .log-entry{flex-wrap:wrap;}
+    .post-excerpt-line{margin-left:0;}
   }
-  .post-list-item .date-col .month{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--accent-deep);
-    font-weight:700;
-  }
-  .post-list-item .date-col .day{
-    font-family:var(--serif);
-    font-size:26px;
-    color:var(--ink);
-    line-height:1.1;
-  }
-  .post-list-item .date-col .year{
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--ink-faint);
-  }
-  .post-list-item .body-col{flex:1;border-left:1px solid var(--line);padding-left:22px;}
-  .post-list-item h2{
-    font-family:var(--serif);
-    font-size:23px;
-    margin:0 0 8px;
-    line-height:1.25;
-  }
-  .post-list-item h2 a{color:var(--ink);text-decoration:none;}
-  .post-list-item h2 a:hover{color:var(--accent-deep);}
-  .post-list-item p.excerpt{color:var(--ink-soft);margin:0;font-size:15.5px;}
-  .post-list-item .read-more{
-    display:inline-block;
-    margin-top:10px;
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--accent-deep);
-    text-decoration:none;
-    border-bottom:1px solid var(--line-strong);
-  }
-  .post-list-item .read-more:hover{border-bottom-color:var(--accent);}
 
   .empty-state{
-    padding:50px 0;
-    color:var(--ink-faint);
+    padding:40px 0;
+    color:var(--text-faint);
     font-family:var(--mono);
-    font-size:13.5px;
+    font-size:13px;
     text-align:center;
-    border:1px dashed var(--line-strong);
-    border-radius:8px;
-    margin-top:30px;
   }
+  .empty-state::before{content:"// ";}
 
   /* ===== FOOTER ===== */
   footer.site-footer{
     border-top:1px solid var(--line);
-    padding:26px 0;
+    padding:24px 0;
     font-family:var(--mono);
-    font-size:12px;
-    color:var(--ink-faint);
+    font-size:11.5px;
+    color:var(--text-faint);
     text-align:center;
   }
-  footer.site-footer a{color:var(--ink-faint);text-decoration-color:var(--line-strong);}
-  footer.site-footer a:hover{color:var(--accent-deep);}
+  footer.site-footer a{color:var(--text-faint);}
+  footer.site-footer a:hover{color:var(--signal);}
 
   @media (max-width:540px){
-    h1.post-title{font-size:30px;}
-    .post-list-item{flex-direction:column;gap:8px;}
-    .post-list-item .date-col{width:auto;display:flex;gap:8px;align-items:baseline;}
-    .post-list-item .body-col{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:14px;}
+    h1.post-title{font-size:26px;}
   }
 </style>
 </head>
@@ -271,13 +301,13 @@
 <header class="site-header">
   <div class="wrap">
     <div class="brand-block">
-      <span class="stamp">Journal</span>
-      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <span class="dot"></span>
+      <a class="brand" href="{{ '/' | relative_url }}"><span class="prompt">~/</span>{{ site.title | slugify }}</a>
     </div>
     <nav>
-      <a href="{{ '/' | relative_url }}">Posts</a>
-      <a href="{{ '/about/' | relative_url }}">About</a>
-      <a href="https://github.com/{{ site.author.github }}">GitHub</a>
+      <a href="{{ '/' | relative_url }}">log</a>
+      <a href="{{ '/about/' | relative_url }}">about</a>
+      <a href="https://github.com/{{ site.author.github }}">github</a>
     </nav>
   </div>
 </header>
@@ -288,10 +318,11 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    {{ site.title }} &middot; built and maintained on GitHub Pages &middot; <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    {{ site.author.name }} &middot; built on GitHub Pages &middot; <a href="{{ '/feed.xml' | relative_url }}">rss</a>
   </div>
 </footer>
 
 </body>
 </html>
+
 
