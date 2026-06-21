@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building the Floor First"
-date: 2026-06-18
+date: 2026-06-22
 tags: [vision, foundation-sprint]
 ---
 
