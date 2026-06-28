@@ -13,7 +13,7 @@ author:
 markdown: kramdown
 highlighter: rouge
 permalink: /:year/:month/:day/:title/
-future: true
+future: false
 
 plugins:
   - jekyll-feed
