@@ -215,8 +215,70 @@
   article.post-content li::marker{color:var(--text-faint);}
   article.post-content a{color:var(--link);text-decoration:underline;text-decoration-color:#30363d;}
   article.post-content a:hover{text-decoration-color:var(--link);}
-  article.post-content img{max-width:70%;display:block;margin:24px auto;border-radius:6px;border:1px solid var(--line);}
-  @media (max-width:560px){article.post-content img{max-width:100%;}}
+  article.post-content img{
+    max-width:560px;
+    width:100%;
+    display:block;
+    margin:28px auto;
+    border-radius:6px;
+    border:1px solid var(--line);
+    cursor:zoom-in;
+    transition:opacity 0.15s;
+  }
+  article.post-content img:hover{opacity:0.85;}
+
+  /* Lightbox */
+  .lb-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.92);
+    z-index:9999;
+    cursor:zoom-out;
+    overflow:hidden;
+  }
+  .lb-overlay.active{display:flex;align-items:center;justify-content:center;}
+  .lb-wrap{
+    position:relative;
+    overflow:hidden;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .lb-img{
+    max-width:90vw;
+    max-height:90vh;
+    border-radius:6px;
+    border:1px solid var(--line);
+    transform-origin:center center;
+    transition:transform 0.1s;
+    cursor:grab;
+    user-select:none;
+  }
+  .lb-img.dragging{cursor:grabbing;}
+  .lb-close{
+    position:fixed;
+    top:16px;right:20px;
+    font-size:28px;
+    color:#fff;
+    cursor:pointer;
+    font-family:var(--mono);
+    line-height:1;
+    opacity:0.7;
+  }
+  .lb-close:hover{opacity:1;}
+  .lb-hint{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    pointer-events:none;
+  }
   article.post-content hr{border:none;border-top:1px solid var(--line);margin:40px 0;}
 
   /* ===== POST LIST (homepage, log-line style) ===== */
@@ -324,6 +386,123 @@
     {{ site.author.name }} &middot; built on GitHub Pages &middot; <a href="{{ '/feed.xml' | relative_url }}">rss</a>
   </div>
 </footer>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb-overlay">
+  <div class="lb-wrap" id="lb-wrap">
+    <img class="lb-img" id="lb-img" src="" alt="">
+  </div>
+  <span class="lb-close" id="lb-close">✕</span>
+  <span class="lb-hint">scroll to zoom &nbsp;·&nbsp; drag to pan &nbsp;·&nbsp; click to close</span>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('lb-overlay');
+  var lbImg   = document.getElementById('lb-img');
+  var scale   = 1, minScale = 1, maxScale = 5;
+  var tx = 0, ty = 0;
+  var dragging = false, startX, startY, startTx, startTy;
+
+  function setTransform(){
+    lbImg.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')';
+  }
+
+  function open(src, alt){
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    scale = 1; tx = 0; ty = 0;
+    setTransform();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close(){
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  // Click images in post to open
+  document.querySelectorAll('article.post-content img').forEach(function(img){
+    img.addEventListener('click', function(){ open(img.src, img.alt); });
+  });
+
+  // Close on overlay click (not on image drag)
+  document.getElementById('lb-close').addEventListener('click', close);
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) close();
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') close();
+  });
+
+  // Scroll to zoom
+  overlay.addEventListener('wheel', function(e){
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -0.15 : 0.15;
+    scale = Math.min(maxScale, Math.max(minScale, scale + delta));
+    if(scale === minScale){ tx = 0; ty = 0; }
+    setTransform();
+  }, {passive:false});
+
+  // Drag to pan
+  lbImg.addEventListener('mousedown', function(e){
+    if(scale <= 1) return;
+    dragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startTx = tx; startTy = ty;
+    lbImg.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    tx = startTx + (e.clientX - startX);
+    ty = startTy + (e.clientY - startY);
+    setTransform();
+  });
+  document.addEventListener('mouseup', function(){
+    dragging = false;
+    lbImg.classList.remove('dragging');
+  });
+
+  // Touch pinch-zoom and drag
+  var lastDist = null, lastTouchTx, lastTouchTy, touchStart;
+  lbImg.addEventListener('touchstart', function(e){
+    if(e.touches.length === 2){
+      lastDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    } else if(e.touches.length === 1 && scale > 1){
+      touchStart = e.touches[0];
+      lastTouchTx = tx; lastTouchTy = ty;
+    }
+  }, {passive:true});
+  lbImg.addEventListener('touchmove', function(e){
+    if(e.touches.length === 2 && lastDist){
+      var dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      scale = Math.min(maxScale, Math.max(minScale, scale * (dist / lastDist)));
+      lastDist = dist;
+      if(scale === minScale){ tx = 0; ty = 0; }
+      setTransform();
+      e.preventDefault();
+    } else if(e.touches.length === 1 && scale > 1 && touchStart){
+      tx = lastTouchTx + (e.touches[0].clientX - touchStart.clientX);
+      ty = lastTouchTy + (e.touches[0].clientY - touchStart.clientY);
+      setTransform();
+      e.preventDefault();
+    }
+  }, {passive:false});
+  lbImg.addEventListener('touchend', function(e){
+    if(e.touches.length < 2) lastDist = null;
+  }, {passive:true});
+})();
+</script>
 
 </body>
 </html>
