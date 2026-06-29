@@ -3,7 +3,7 @@ name: Scheduled Weekly Post
 on:
   schedule:
     - cron: '0 4 * * 1'  # Every Monday at 4:00 AM UTC = 9:30 AM IST
-   workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   trigger-build:
