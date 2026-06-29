@@ -3,6 +3,7 @@ layout: post
 title: "Week 1: The Gap Between Planning and Doing"
 date: 2026-06-29
 tags: [week-1, linear-algebra, python, oop, 3b1b, gilbert-strang]
+excerpt: "Three good days, three lost ones. What the gap between planning and execution actually looks like from the inside."
 ---
 
 ## The thing that actually stuck with me this week
