@@ -28,7 +28,7 @@ The project grew because I kept finding ways to make it more cohesive. The end r
 
 The two sessions of actual learning this week were genuinely good. Short, but real.
 
-![Notes from 3B1B Video 4 — matrix multiplication as composition of transformations](/assets/images/week-2-3b1b-matrix-composition.jpg)
+![Notes from 3B1B Video 4 — matrix multiplication as composition of transformations](/assets/images/week-2-3b1b-matrix-composition.jpeg)
 
 Matrix multiplication as composition — two transformations applied in sequence, their product being the single matrix that captures both — is one of those reframings that changes how you read notation afterward. Reading AB right to left: apply B first, then A. Obvious once you see it geometrically. Not obvious at all from the algorithm alone.
 
