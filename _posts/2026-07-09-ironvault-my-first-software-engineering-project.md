@@ -58,7 +58,7 @@ Four systems at its core:
 
 All four communicate through a strict one-way dependency architecture. Items never modify inventories directly. Characters own equipment slots instead of weapons owning character state. Combat knows nothing about save files. Each module has exactly one responsibility, and every feature lives where it naturally belongs.
 
-![IronVault running — combat system and inventory in action](/assets/images/ironvault-terminal-demo.png)
+![IronVault running — combat system and inventory in action](/assets/images/ironvault-terminal-demo.jpg)
 
 ---
 
