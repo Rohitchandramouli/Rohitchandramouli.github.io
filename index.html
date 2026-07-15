@@ -48,6 +48,9 @@ title: Home
 
 <div class="post-list">
 {% for post in site.posts %}
+  {% assign words = post.content | number_of_words %}
+  {% assign mins = words | divided_by: 200 %}
+  {% if mins < 1 %}{% assign mins = 1 %}{% endif %}
   <div class="log-entry">
     <span class="ts">{{ post.date | date: "[%Y-%m-%d]" }}</span>
     {% if post.tags and post.tags.size > 0 %}
@@ -56,7 +59,10 @@ title: Home
     <span class="entry-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></span>
     <span class="arrow">&rarr;</span>
   </div>
-  <div class="post-excerpt-line">{{ post.excerpt | strip_html | truncatewords: 28 }}</div>
+  <div class="post-excerpt-line">
+    {{ post.excerpt | strip_html | truncatewords: 38 }}
+    <span class="home-read-time">⏱ {{ mins }} min read</span>
+  </div>
 {% else %}
   <div class="empty-state">no entries yet — first post incoming end of week 1</div>
 {% endfor %}

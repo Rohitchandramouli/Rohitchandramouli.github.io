@@ -4,21 +4,22 @@ layout: default
 <article>
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-meta">
-    {{ page.date | date: "%Y-%m-%d" }}
-    {% if page.tags %}{% for tag in page.tags %}<a href="/tags/{{ tag | slugify }}/" class="tag" style="text-decoration:none;">{{ tag }}</a>{% endfor %}{% endif %}
-    <span class="reading-time">
-      {% assign words = content | number_of_words %}
-      {% assign mins = words | divided_by: 200 %}
-      {% if mins < 1 %}{% assign mins = 1 %}{% endif %}
-      {{ mins }} min read
-    </span>
+    <span class="post-date">{{ page.date | date: "%Y-%m-%d" }}</span>
     {% for tag in page.tags %}
       {% if tag contains "week-" %}
         {% assign week_num = tag | remove: "week-" %}
-        <span class="reading-time">week {{ week_num }} of 26</span>
+        <span class="sprint-week">week {{ week_num }} of 26</span>
         {% break %}
       {% endif %}
     {% endfor %}
+    {% if page.tags %}{% for tag in page.tags %}<a href="/tags/{{ tag | slugify }}/" class="tag" style="text-decoration:none;">{{ tag }}</a>{% endfor %}{% endif %}
+  </div>
+  <div class="reading-time-block">
+    {% assign words = content | number_of_words %}
+    {% assign mins = words | divided_by: 200 %}
+    {% if mins < 1 %}{% assign mins = 1 %}{% endif %}
+    <span class="rt-icon">⏱</span>
+    <span class="rt-text">{{ mins }} min read &nbsp;·&nbsp; {{ words }} words</span>
   </div>
   <div class="post-content">
     {{ content }}
