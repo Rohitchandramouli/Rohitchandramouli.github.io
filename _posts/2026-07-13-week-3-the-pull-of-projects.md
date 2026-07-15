@@ -59,7 +59,3 @@ IronVault is fully finalized — documented, packaged, posted. The new project h
 The data pipeline gets built this week. NumPy, Pandas, Seaborn get learned as I use them — not before. Linear algebra continues in parallel. Both have to happen. Neither is optional.
 
 What I'm feeling: pulled in two directions and aware of it. The sprint works when learning and building happen together. Right now building is winning by too much.
-
----
-
-*← [IronVault — My First Software Engineering Project](/2026/07/09/ironvault-my-first-software-engineering-project/)*

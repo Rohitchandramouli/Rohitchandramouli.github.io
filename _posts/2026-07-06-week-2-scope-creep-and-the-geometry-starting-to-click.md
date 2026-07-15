@@ -66,7 +66,3 @@ Notes on 3B1B video 4 and Strang lecture 2. The OOP project is structurally comp
 The project ships this week — that's not a plan, it's a commitment. Once it's tested and posted, the backlog is cleared and the sprint gets back on track.
 
 What I'm feeling: impatient with myself, but clear on what needs to happen. Two weeks of drag ends this week.
-
----
-
-*← [Week 1 — The Gap Between Planning and Doing](/2026/06/29/week-1-the-gap-between-planning-and-doing/) · [IronVault — My First Software Engineering Project](/2026/07/09/ironvault-my-first-software-engineering-project/) →*

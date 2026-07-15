@@ -25,6 +25,21 @@ layout: default
   </div>
 </article>
 
+<nav class="post-nav">
+  {% if page.next %}
+  <a class="post-nav-link post-nav-prev" href="{{ page.next.url | relative_url }}">
+    <span class="post-nav-label">← previous</span>
+    <span class="post-nav-title">{{ page.next.title }}</span>
+  </a>
+  {% endif %}
+  {% if page.previous %}
+  <a class="post-nav-link post-nav-next" href="{{ page.previous.url | relative_url }}">
+    <span class="post-nav-label">next →</span>
+    <span class="post-nav-title">{{ page.previous.title }}</span>
+  </a>
+  {% endif %}
+</nav>
+
 <div class="comments-section">
   <script src="https://giscus.app/client.js"
     data-repo="Rohitchandramouli/Rohitchandramouli.github.io"

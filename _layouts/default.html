@@ -431,6 +431,43 @@
   footer.site-footer a{color:var(--text-faint);}
   footer.site-footer a:hover{color:var(--signal);}
 
+  /* ===== POST NAVIGATION ===== */
+  nav.post-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:48px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+  }
+  .post-nav-link{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    text-decoration:none;
+    max-width:48%;
+  }
+  .post-nav-next{text-align:right;margin-left:auto;}
+  .post-nav-label{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .post-nav-title{
+    font-family:var(--sans);
+    font-size:14px;
+    color:var(--link);
+    line-height:1.4;
+  }
+  .post-nav-link:hover .post-nav-title{color:var(--signal);}
+  @media(max-width:560px){
+    nav.post-nav{flex-direction:column;}
+    .post-nav-link{max-width:100%;}
+    .post-nav-next{text-align:left;margin-left:0;}
+  }
+
   .comments-section{
     margin-top:48px;
     padding-top:32px;
