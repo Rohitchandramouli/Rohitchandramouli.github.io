@@ -35,7 +35,3 @@ I'm also not pretending the schedule is sustainable by sheer willpower. Part of 
 A record, mostly for myself, of what actually happened versus what the plan said would happen — including the parts where they diverge. If you're reading this from outside, the more useful posts are probably going to be the ones that aren't flattering: the week a derivation took three times longer than budgeted, the integration bug that ate four days, the gate I didn't pass on the first attempt. That's the part of this that's actually informative, and it's the part most engineering blogs quietly omit.
 
 Day one starts now. Week 1, Day 1, Block 1.
-
----
-
-*The sprint started here. See how Week 1 actually went: [Week 1 — The Gap Between Planning and Doing](/2026/06/29/week-1-the-gap-between-planning-and-doing/)*
