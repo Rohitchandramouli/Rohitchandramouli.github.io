@@ -42,11 +42,17 @@ title: Home
   <p>{{ site.description }}</p>
 </div>
 
+<div class="start-here">
+  <strong>New here?</strong> This is a live log of a six-month sprint from EEE graduate to ML engineer — written honestly, including the weeks that don't go to plan. Start with <a href="/2026/06/22/building-the-floor-first/">Building the Floor First</a> to understand what this sprint is actually trying to do.
+</div>
+
 <div class="post-list">
 {% for post in site.posts %}
   <div class="log-entry">
     <span class="ts">{{ post.date | date: "[%Y-%m-%d]" }}</span>
-    {% if post.tags and post.tags.size > 0 %}<span class="tagchip">{{ post.tags[0] }}</span>{% endif %}
+    {% if post.tags and post.tags.size > 0 %}
+      <a href="/tags/{{ post.tags[0] | slugify }}/" class="tagchip" style="text-decoration:none;">{{ post.tags[0] }}</a>
+    {% endif %}
     <span class="entry-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></span>
     <span class="arrow">&rarr;</span>
   </div>

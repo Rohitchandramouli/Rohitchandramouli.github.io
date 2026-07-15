@@ -3,7 +3,7 @@ layout: post
 title: "Week 1: The Gap Between Planning and Doing"
 date: 2026-06-29
 tags: [week-1, linear-algebra, python, oop, 3b1b, gilbert-strang]
-excerpt: "Three good days, three lost ones. What the gap between planning and execution actually looks like from the inside."
+excerpt: "Three good days, three lost ones — and I still can't explain why Thursday felt so different from Monday. What the gap between planning and execution actually looks like from the inside."
 ---
 
 ## The thing that actually stuck with me this week
@@ -75,3 +75,7 @@ Carrying a backlog into Week 2 is not ideal, and I'm not going to pretend otherw
 What I'm actually feeling: a bit frustrated, but not defeated. The first half of this week showed me the plan works when I show up for it. The second half showed me I can't assume I'll show up just because I intend to.
 
 Smart work and hard work are both required. I've spent a long time being good at one of them.
+
+---
+
+*← [Building the Floor First](/2026/06/22/building-the-floor-first/) · [Week 2 — Scope Creep and the Geometry Starting to Click](/2026/07/06/week-2-scope-creep-and-the-geometry-starting-to-click/) →*

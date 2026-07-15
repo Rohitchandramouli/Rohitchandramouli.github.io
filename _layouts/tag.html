@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<h1 class="post-title">Posts tagged <span style="color:var(--signal)">{{ page.tag }}</span></h1>
+
+<div class="post-list" style="margin-top:24px;">
+{% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains page.tag" %}
+{% for post in tagged_posts %}
+  <div class="log-entry">
+    <span class="ts">{{ post.date | date: "[%Y-%m-%d]" }}</span>
+    <span class="tagchip">{{ post.tags[0] }}</span>
+    <span class="entry-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></span>
+    <span class="arrow">&rarr;</span>
+  </div>
+  <div class="post-excerpt-line">{{ post.excerpt | strip_html | truncatewords: 28 }}</div>
+{% endfor %}
+</div>
+
+<div style="margin-top:32px;font-family:var(--mono);font-size:13px;">
+  <a href="/tags/" style="color:var(--text-faint);">← all tags</a>
+</div>

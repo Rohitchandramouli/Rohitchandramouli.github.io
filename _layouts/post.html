@@ -5,7 +5,20 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-meta">
     {{ page.date | date: "%Y-%m-%d" }}
-    {% if page.tags %}{% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}{% endif %}
+    {% if page.tags %}{% for tag in page.tags %}<a href="/tags/{{ tag | slugify }}/" class="tag" style="text-decoration:none;">{{ tag }}</a>{% endfor %}{% endif %}
+    <span class="reading-time">
+      {% assign words = content | number_of_words %}
+      {% assign mins = words | divided_by: 200 %}
+      {% if mins < 1 %}{% assign mins = 1 %}{% endif %}
+      {{ mins }} min read
+    </span>
+    {% for tag in page.tags %}
+      {% if tag contains "week-" %}
+        {% assign week_num = tag | remove: "week-" %}
+        <span class="reading-time">week {{ week_num }} of 26</span>
+        {% break %}
+      {% endif %}
+    {% endfor %}
   </div>
   <div class="post-content">
     {{ content }}

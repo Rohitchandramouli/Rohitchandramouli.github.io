@@ -16,7 +16,7 @@
 <meta property="og:title" content="{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}">
 <meta property="og:description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
 <meta property="og:site_name" content="{{ site.title }}">
-{% if page.image %}<meta property="og:image" content="{{ page.image | absolute_url }}">{% endif %}
+{% if page.image %}<meta property="og:image" content="{{ page.image | absolute_url }}">{% else %}<meta property="og:image" content="{{ '/assets/images/og-default.svg' | absolute_url }}">{% endif %}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% if page.title %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
 <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
@@ -46,7 +46,7 @@
     color:var(--text);
     font-family:var(--sans);
     font-size:16px;
-    line-height:1.7;
+    line-height:1.8;
   }
   .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
   ::selection{background:#264f78;color:#fff;}
@@ -324,7 +324,7 @@
   }
   .log-entry .entry-title{
     font-family:var(--sans);
-    font-size:16px;
+    font-size:15px;
     font-weight:500;
     flex:1;
   }
@@ -335,20 +335,80 @@
   .post-excerpt-line{
     font-family:var(--sans);
     color:var(--text-dim);
-    font-size:14px;
+    font-size:14.5px;
     margin:0 0 0 118px;
     padding-bottom:28px;
     border-bottom:1px solid var(--line);
   }
   .post-excerpt-line:last-of-type{border-bottom:none;}
-  .log-entry{
-    margin-top:20px;
-  }
+  .log-entry{margin-top:20px;}
 
   @media (max-width:560px){
     .log-entry{flex-wrap:wrap;}
     .post-excerpt-line{margin-left:0;}
+    .log-entry .entry-title{font-size:14px;}
   }
+
+  /* ===== START HERE BLOCK ===== */
+  .start-here{
+    margin:24px 0 0;
+    padding:16px 20px;
+    border:1px solid var(--line-bright);
+    border-left:3px solid var(--signal);
+    border-radius:4px;
+    background:var(--bg-raised);
+    font-size:13.5px;
+    color:var(--text-dim);
+    font-family:var(--sans);
+  }
+  .start-here strong{color:var(--text);}
+  .start-here a{color:var(--link);}
+
+  /* ===== READING TIME ===== */
+  .reading-time{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+  }
+
+  /* ===== TAGS INDEX ===== */
+  .tags-index{margin-top:24px;}
+  .tag-group{margin-bottom:16px;}
+  .tag-heading{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+  }
+  .tag-heading:hover .tagchip{border-color:var(--signal);}
+  .tag-count{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+  }
+
+  /* ===== SYNTAX HIGHLIGHTING (Rouge) ===== */
+  .highlight{
+    background:#010409;
+    border:1px solid var(--line-bright);
+    border-radius:6px;
+    overflow-x:auto;
+    margin:24px 0;
+    padding:18px 20px;
+    font-size:13.5px;
+    line-height:1.55;
+  }
+  .highlight .c,.highlight .c1,.highlight .cm{color:#8b949e;font-style:italic;}
+  .highlight .k,.highlight .kd,.highlight .kn,.highlight .kr{color:#ff7b72;}
+  .highlight .s,.highlight .s1,.highlight .s2{color:#a5d6ff;}
+  .highlight .n,.highlight .nx{color:#c9d1d9;}
+  .highlight .nb{color:#ffa657;}
+  .highlight .nf,.highlight .nc{color:#d2a8ff;}
+  .highlight .mi,.highlight .mf{color:#79c0ff;}
+  .highlight .o,.highlight .p{color:#c9d1d9;}
+  .highlight .kc{color:#79c0ff;}
+  .highlight .nn{color:#ffa657;}
+  .highlight pre{margin:0;background:none;border:none;padding:0;}
 
   .empty-state{
     padding:40px 0;
@@ -392,8 +452,10 @@
     </div>
     <nav>
       <a href="{{ '/' | relative_url }}">log</a>
+      <a href="{{ '/tags/' | relative_url }}">tags</a>
       <a href="{{ '/about/' | relative_url }}">about</a>
       <a href="https://github.com/{{ site.author.github }}">github</a>
+      <a href="{{ '/feed.xml' | relative_url }}">rss</a>
     </nav>
   </div>
 </header>

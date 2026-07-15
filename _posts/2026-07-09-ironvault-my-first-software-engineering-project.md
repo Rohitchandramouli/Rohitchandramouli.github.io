@@ -99,3 +99,7 @@ This project took a lot out of me — more than I expected for something that si
 If you're interested in the architecture, the design decisions, or just want to poke around the code, the repo is below. Star it if you think it's a reasonable first software engineering project. And if you have ideas — technically or as a game mechanic — leave them in the comments. I'll come back to IronVault in the future.
 
 [IronVault on GitHub](https://github.com/Rohitchandramouli/ironvault)
+
+---
+
+*← [Week 2 — Scope Creep and the Geometry Starting to Click](/2026/07/06/week-2-scope-creep-and-the-geometry-starting-to-click/) · [Week 3 — The Pull of Projects](/2026/07/13/week-3-the-pull-of-projects/) →*

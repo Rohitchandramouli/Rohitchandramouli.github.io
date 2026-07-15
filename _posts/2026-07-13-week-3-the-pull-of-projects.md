@@ -3,7 +3,7 @@ layout: post
 title: "Week 3: The Pull of Projects"
 date: 2026-07-13
 tags: [week-3, python, data-engineering, project, github, ml-ecosystem]
-excerpt: "Three weeks in and the projects are already winning against the learning track. An honest account of where the time went, what got designed, and a question I'm genuinely sitting with."
+excerpt: "Three weeks in and the projects are already winning against the learning track. I know it's happening and I keep going anyway — which tells me something I need to sit with."
 ---
 
 ## The thing that actually stuck with me this week
@@ -59,3 +59,7 @@ IronVault is fully finalized — documented, packaged, posted. The new project h
 The data pipeline gets built this week. NumPy, Pandas, Seaborn get learned as I use them — not before. Linear algebra continues in parallel. Both have to happen. Neither is optional.
 
 What I'm feeling: pulled in two directions and aware of it. The sprint works when learning and building happen together. Right now building is winning by too much.
+
+---
+
+*← [IronVault — My First Software Engineering Project](/2026/07/09/ironvault-my-first-software-engineering-project/)*

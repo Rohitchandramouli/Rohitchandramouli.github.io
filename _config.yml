@@ -12,8 +12,18 @@ author:
 
 markdown: kramdown
 highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
 permalink: /:year/:month/:day/:title/
 future: false
+
+collections:
+  tags:
+    output: true
+    permalink: /tags/:name/
 
 plugins:
   - jekyll-feed
@@ -25,6 +35,11 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+  - scope:
+      path: ""
+      type: "tags"
+    values:
+      layout: "tag"
 
 exclude:
   - README.md
