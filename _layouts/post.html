@@ -26,16 +26,16 @@ layout: default
 </article>
 
 <nav class="post-nav">
-  {% if page.next %}
-  <a class="post-nav-link post-nav-prev" href="{{ page.next.url | relative_url }}">
-    <span class="post-nav-label">← previous</span>
-    <span class="post-nav-title">{{ page.next.title }}</span>
+  {% if page.previous %}
+  <a class="post-nav-link post-nav-prev" href="{{ page.previous.url | relative_url }}">
+    <span class="post-nav-label">← older</span>
+    <span class="post-nav-title">{{ page.previous.title | truncate: 40 }}</span>
   </a>
   {% endif %}
-  {% if page.previous %}
-  <a class="post-nav-link post-nav-next" href="{{ page.previous.url | relative_url }}">
-    <span class="post-nav-label">next →</span>
-    <span class="post-nav-title">{{ page.previous.title }}</span>
+  {% if page.next %}
+  <a class="post-nav-link post-nav-next" href="{{ page.next.url | relative_url }}">
+    <span class="post-nav-label">newer →</span>
+    <span class="post-nav-title">{{ page.next.title | truncate: 40 }}</span>
   </a>
   {% endif %}
 </nav>
