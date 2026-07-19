@@ -21,6 +21,11 @@
 <title>{% if page.title %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
 <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+<!-- Prevent theme flash -->
+<script>
+  var t = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+</script>
 <style>
   :root{
     --bg:#0d1117;
@@ -37,6 +42,20 @@
     --link:#79c0ff;
     --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
     --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff;
+    --bg-raised:#f6f8fa;
+    --panel:#f6f8fa;
+    --line:#d0d7de;
+    --line-bright:#d0d7de;
+    --text:#1f2328;
+    --text-dim:#656d76;
+    --text-faint:#9198a1;
+    --signal:#1a7f37;
+    --signal-dim:#2da44e;
+    --warn:#d1242f;
+    --link:#0969da;
   }
   *{box-sizing:border-box;}
   html{background:var(--bg);}
@@ -364,6 +383,51 @@
   .start-here strong{color:var(--text);}
   .start-here a{color:var(--link);}
 
+  /* ===== SCROLL PROGRESS BAR ===== */
+  #scroll-progress{
+    position:fixed;
+    top:0;left:0;
+    width:0%;
+    height:3px;
+    background:var(--signal);
+    z-index:9998;
+    transition:width 0.1s linear;
+  }
+
+  /* ===== THEME TOGGLE ===== */
+  .theme-toggle{
+    background:none;
+    border:1px solid var(--line-bright);
+    border-radius:4px;
+    color:var(--text-dim);
+    cursor:pointer;
+    font-family:var(--mono);
+    font-size:12px;
+    padding:3px 8px;
+    line-height:1.5;
+    transition:border-color 0.15s,color 0.15s;
+  }
+  .theme-toggle:hover{border-color:var(--signal-dim);color:var(--text);}
+
+  /* ===== COPY LINK BUTTON ===== */
+  .copy-link-wrap{margin-bottom:20px;}
+  .copy-link-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:none;
+    border:1px solid var(--line-bright);
+    border-radius:4px;
+    color:var(--text-faint);
+    cursor:pointer;
+    font-family:var(--mono);
+    font-size:11.5px;
+    padding:4px 10px;
+    transition:border-color 0.15s,color 0.15s;
+  }
+  .copy-link-btn:hover{border-color:var(--signal-dim);color:var(--text);}
+  .copy-link-btn.copied{border-color:var(--signal);color:var(--signal);}
+
   /* ===== READING TIME BLOCK ===== */
   .reading-time-block{
     display:inline-flex;
@@ -525,6 +589,7 @@
 </style>
 </head>
 <body>
+<div id="scroll-progress"></div>
 
 <header class="site-header">
   <div class="wrap">
@@ -538,6 +603,7 @@
       <a href="{{ '/about/' | relative_url }}">about</a>
       <a href="https://github.com/{{ site.author.github }}">github</a>
       <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">☀</button>
     </nav>
   </div>
 </header>
@@ -551,6 +617,61 @@
     {{ site.author.name }} &middot; built on GitHub Pages &middot; <a href="{{ '/feed.xml' | relative_url }}">rss</a>
   </div>
 </footer>
+<!-- Scroll Progress Bar -->
+<script>
+(function(){
+  var bar = document.getElementById('scroll-progress');
+  if(!bar) return;
+  function update(){
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(pct, 100) + '%';
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+</script>
+
+<!-- Theme Toggle -->
+<script>
+(function(){
+  var btn = document.getElementById('theme-toggle');
+  if(!btn) return;
+  var stored = localStorage.getItem('theme') || 'dark';
+  function apply(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    btn.textContent = theme === 'dark' ? '☀' : '☾';
+    btn.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    localStorage.setItem('theme', theme);
+  }
+  apply(stored);
+  btn.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    apply(current === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+
+<!-- Copy Link Button -->
+<script>
+(function(){
+  var btn = document.getElementById('copy-link-btn');
+  var label = document.getElementById('copy-link-label');
+  if(!btn || !label) return;
+  btn.addEventListener('click', function(){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      btn.classList.add('copied');
+      label.textContent = 'copied!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        label.textContent = 'copy link';
+      }, 2000);
+    });
+  });
+})();
+</script>
+
 <!-- Lightbox -->
 <div class="lb-overlay" id="lb-overlay">
   <div class="lb-wrap" id="lb-wrap">
